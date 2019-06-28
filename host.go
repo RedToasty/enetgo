@@ -9,7 +9,6 @@ package enetgo
 import "C"
 
 type ENetHost C.ENetHost
-type ENetEvent C.ENetEvent
 
 // CreateHost builds a new ENetHost at a given IP address, with a given configuration
 func CreateHost(address *ENetAddress, peerCount uint64, channelLimit uint64, inBandwidth uint32, outBandwith uint32, bufferSize int) (host *ENetHost) {
