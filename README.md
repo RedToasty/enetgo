@@ -20,9 +20,19 @@ Implementation example, drop the dll in the %PATH% and run.
 		fmt.Println("Starting loop")
 		for {
 			if host.CheckEvents(netEvent) > 0 || host.Service(netEvent, 1) > 0 {
-				fmt.Println("message")
-			} else {
-				fmt.Println("No message")
+				eventType := netEvent.GetType()
+				switch eventType {
+				case enetgo.ENET_EVENT_TYPE_CONNECT:
+					fmt.Println("Connection event")
+					break
+				case enetgo.ENET_EVENT_TYPE_DISCONNECT:
+					fmt.Println("Disconnection event")
+					break
+				case enetgo.ENET_EVENT_TYPE_RECEIVE:
+					fmt.Println("Receive message event")
+					break
+				}
 			}
 		}
 	}
+
