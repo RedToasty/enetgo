@@ -1,3 +1,6 @@
+Implementation example, drop the dll in the %PATH% and run.
+
+{
 package main
 
 import (
@@ -18,4 +21,5 @@ func main() {
 			fmt.Println("message")
 		}
 	}
+}
 }
