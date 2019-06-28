@@ -19,6 +19,8 @@ const (
 	ENET_EVENT_TYPE_DISCONNECT_TIMEOUT = ENetEventType(C.ENET_EVENT_TYPE_DISCONNECT_TIMEOUT)
 )
 
+/*
 func (event *ENetEvent) GetType() ENetEventType {
 	return ENetEventType((*C.ENetEvent)(event).eventType)
 }
+*/

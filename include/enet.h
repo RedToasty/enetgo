@@ -701,7 +701,7 @@ extern "C" {
 	} ENetEventType;
 
 	typedef struct _ENetEvent {
-		ENetEventType eventType;
+		ENetEventType type;
 		ENetPeer* peer;
 		enet_uint8 channelID;
 		enet_uint32 data;

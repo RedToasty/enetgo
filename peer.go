@@ -23,3 +23,7 @@ const (
 	ENET_PEER_STATE_ACKNOWLEDGING_DISCONNECT = ENetPeerState(C.ENET_PEER_STATE_ACKNOWLEDGING_DISCONNECT)
 	ENET_PEER_STATE_ZOMBIE                   = ENetPeerState(C.ENET_PEER_STATE_ZOMBIE)
 )
+
+func (peer *ENetPeer) GetState() ENetPeerState {
+	return ENetPeerState((*C.ENetPeer)(peer).state)
+}
