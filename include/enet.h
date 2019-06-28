@@ -701,7 +701,7 @@ extern "C" {
 	} ENetEventType;
 
 	typedef struct _ENetEvent {
-		ENetEventType type;
+		ENetEventType eType;
 		ENetPeer* peer;
 		enet_uint8 channelID;
 		enet_uint32 data;
@@ -1375,7 +1375,7 @@ extern "C" {
 				case ENET_PEER_STATE_CONNECTION_SUCCEEDED:
 					enet_protocol_change_state(host, peer, ENET_PEER_STATE_CONNECTED);
 
-					event->type = ENET_EVENT_TYPE_CONNECT;
+					event->eType = ENET_EVENT_TYPE_CONNECT;
 					event->peer = peer;
 					event->data = peer->eventData;
 
@@ -1383,7 +1383,7 @@ extern "C" {
 
 				case ENET_PEER_STATE_ZOMBIE:
 					host->recalculateBandwidthLimits = 1;
-					event->type = ENET_EVENT_TYPE_DISCONNECT;
+					event->eType = ENET_EVENT_TYPE_DISCONNECT;
 					event->peer = peer;
 					event->data = peer->eventData;
 
@@ -1400,7 +1400,7 @@ extern "C" {
 					if (event->packet == NULL)
 						continue;
 
-					event->type = ENET_EVENT_TYPE_RECEIVE;
+					event->eType = ENET_EVENT_TYPE_RECEIVE;
 					event->peer = peer;
 
 					if (!enet_list_empty(&peer->dispatchedCommands)) {
@@ -1429,7 +1429,7 @@ extern "C" {
 			peer->totalDataReceived = 0;
 			peer->totalPacketsSent = 0;
 			peer->totalPacketsLost = 0;
-			event->type = ENET_EVENT_TYPE_CONNECT;
+			event->eType = ENET_EVENT_TYPE_CONNECT;
 			event->peer = peer;
 			event->data = peer->eventData;
 		} else {
@@ -1444,7 +1444,7 @@ extern "C" {
 		if (peer->state != ENET_PEER_STATE_CONNECTING && peer->state < ENET_PEER_STATE_CONNECTION_SUCCEEDED) {
 			enet_peer_reset(peer);
 		} else if (event != NULL) {
-			event->type = ENET_EVENT_TYPE_DISCONNECT;
+			event->eType = ENET_EVENT_TYPE_DISCONNECT;
 			event->peer = peer;
 			event->data = 0;
 
@@ -1463,7 +1463,7 @@ extern "C" {
 		if (peer->state != ENET_PEER_STATE_CONNECTING && peer->state < ENET_PEER_STATE_CONNECTION_SUCCEEDED) {
 			enet_peer_reset(peer);
 		} else if (event != NULL) {
-			event->type = ENET_EVENT_TYPE_DISCONNECT_TIMEOUT;
+			event->eType = ENET_EVENT_TYPE_DISCONNECT_TIMEOUT;
 			event->peer = peer;
 			event->data = 0;
 
@@ -2379,7 +2379,7 @@ extern "C" {
 
 		commandError:
 
-		if (event != NULL && event->type != ENET_EVENT_TYPE_NONE)
+		if (event != NULL && event->eType != ENET_EVENT_TYPE_NONE)
 			return 1;
 
 		return 0;
@@ -2412,7 +2412,7 @@ extern "C" {
 			if (host->interceptCallback != NULL) {
 				switch (host->interceptCallback(host, (void*)event)) {
 					case 1:
-						if (event != NULL && event->type != ENET_EVENT_TYPE_NONE)
+						if (event != NULL && event->eType != ENET_EVENT_TYPE_NONE)
 							return 1;
 
 						continue;
@@ -2726,7 +2726,7 @@ extern "C" {
 					enet_protocol_send_acknowledgements(host, currentPeer);
 
 				if (checkForTimeouts != 0 && !enet_list_empty(&currentPeer->sentReliableCommands) && ENET_TIME_GREATER_EQUAL(host->serviceTime, currentPeer->nextTimeout) && enet_protocol_check_timeouts(host, currentPeer, event) == 1) {
-					if (event != NULL && event->type != ENET_EVENT_TYPE_NONE)
+					if (event != NULL && event->eType != ENET_EVENT_TYPE_NONE)
 						return 1;
 					else
 						continue;
@@ -2874,7 +2874,7 @@ extern "C" {
 		if (event == NULL)
 			return -1;
 
-		event->type = ENET_EVENT_TYPE_NONE;
+		event->eType = ENET_EVENT_TYPE_NONE;
 		event->peer = NULL;
 		event->packet = NULL;
 
@@ -2885,7 +2885,7 @@ extern "C" {
 		enet_uint32 waitCondition;
 
 		if (event != NULL) {
-			event->type = ENET_EVENT_TYPE_NONE;
+			event->eType = ENET_EVENT_TYPE_NONE;
 			event->peer = NULL;
 			event->packet = NULL;
 
