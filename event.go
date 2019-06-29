@@ -23,7 +23,7 @@ func (event *ENetEvent) EventType() ENetEventType {
 	return ENetEventType((*C.ENetEvent)(event).eventType)
 }
 
-func (event *ENetEvent) Peer() ENetPeer {
+func (event *ENetEvent) Peer() *ENetPeer {
 	return (*ENetPeer)((*C.ENetEvent)(event).peer)
 }
 
