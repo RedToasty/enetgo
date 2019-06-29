@@ -20,7 +20,7 @@ Implementation example, drop the dll in the %PATH% and run.
 		fmt.Println("Starting loop")
 		for {
 			if host.CheckEvents(netEvent) > 0 || host.Service(netEvent, 1) > 0 {
-				eventType := netEvent.GetType()
+				eventType := netEvent.EventType()
 				switch eventType {
 				case enetgo.ENET_EVENT_TYPE_CONNECT:
 					fmt.Println("Connection event")
@@ -35,4 +35,4 @@ Implementation example, drop the dll in the %PATH% and run.
 			}
 		}
 	}
-
+	
