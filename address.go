@@ -1,9 +1,9 @@
 package enetgo
 
 /*
-#cgo windows LDFLAGS: -L. -lenet
+#cgo windows LDFLAGS: -L${SRCDIR}/libs/ -lenet
 #cgo linux LDFLAGS: -L/usr/local/lib -lenet
-#cgo CFLAGS: -I/include/ -DENET_NO_PRAGMA_LINK
+#cgo CFLAGS: -I${SRCDIR}/include/ -DENET_NO_PRAGMA_LINK -g
  #include "enet.h"
 */
 import "C"

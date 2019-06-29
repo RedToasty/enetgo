@@ -1,9 +1,9 @@
 package enetgo
 
 /*
-#cgo windows LDFLAGS: -L. -lenet
+#cgo windows LDFLAGS: -L${SRCDIR}/libs/ -lenet
 #cgo linux LDFLAGS: -L/usr/local/lib -lenet
-#cgo CFLAGS: -I/include/ -DENET_NO_PRAGMA_LINK
+#cgo CFLAGS: -I${SRCDIR}/include/ -DENET_NO_PRAGMA_LINK -g
  #include "enet.h"
 */
 import "C"
@@ -31,4 +31,12 @@ func (host *ENetHost) CheckEvents(event *ENetEvent) int {
 // Service polls the socket and relays back any events we get while waiting
 func (host *ENetHost) Service(event *ENetEvent, milliseconds uint) int {
 	return int(C.enet_host_service((*C.ENetHost)(host), (*C.ENetEvent)(event), C.uint(milliseconds)))
+}
+
+func (host *ENetHost) Flush() {
+	C.enet_host_flush((*C.ENetHost)(host))
+}
+
+func (host *ENetHost) Broadcast(channelID int, packet *ENetPacket) {
+	C.enet_host_broadcast((*C.ENetHost)(host), C.enet_uint8(channelID), (*C.ENetPacket)(packet))
 }

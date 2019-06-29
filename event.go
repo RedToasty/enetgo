@@ -1,9 +1,9 @@
 package enetgo
 
 /*
-#cgo windows LDFLAGS: -L. -lenet
+#cgo windows LDFLAGS: -L${SRCDIR}/libs/ -lenet
 #cgo linux LDFLAGS: -L/usr/local/lib -lenet
-#cgo CFLAGS: -I/include/ -DENET_NO_PRAGMA_LINK
+#cgo CFLAGS: -I${SRCDIR}/include/ -DENET_NO_PRAGMA_LINK -g
  #include "enet.h"
 */
 import "C"
@@ -19,6 +19,22 @@ const (
 	ENET_EVENT_TYPE_DISCONNECT_TIMEOUT = ENetEventType(C.ENET_EVENT_TYPE_DISCONNECT_TIMEOUT)
 )
 
-func (event *ENetEvent) GetType() ENetEventType {
-	return ENetEventType((*C.ENetEvent)(event).eType)
+func (event *ENetEvent) EventType() ENetEventType {
+	return ENetEventType((*C.ENetEvent)(event).eventType)
+}
+
+func (event *ENetEvent) Peer() ENetPeer {
+	return (*ENetPeer)((*C.ENetEvent)(event).peer)
+}
+
+func (event *ENetEvent) Packet() *ENetPacket {
+	return (*ENetPacket)(event.packet)
+}
+
+func (event *ENetEvent) ChannelID() int {
+	return int(event.channelID)
+}
+
+func (event *ENetEvent) DataLength() int {
+	return int(event.packet.dataLength)
 }
