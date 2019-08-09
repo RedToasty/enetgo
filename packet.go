@@ -19,6 +19,7 @@ const (
 	ENET_PACKET_FLAG_NO_ALLOCATE           = ENetPacketFlag(C.ENET_PACKET_FLAG_NO_ALLOCATE)
 	ENET_PACKET_FLAG_UNRELIABLE_FRAGMENTED = ENetPacketFlag(C.ENET_PACKET_FLAG_UNRELIABLE_FRAGMENTED)
 	ENET_PACKET_FLAG_SENT                  = ENetPacketFlag(C.ENET_PACKET_FLAG_SENT)
+	ENET_PACKET_FLAG_INSTANT               = ENetPacketFlag(C.ENET_PACKET_FLAG_INSTANT)
 )
 
 func NewPacket(data []byte, dataLength int, flags ENetPacketFlag) *ENetPacket {
